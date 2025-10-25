@@ -1,31 +1,54 @@
-import { useState, useEffect } from 'react';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+import { useState, useEffect } from "react";
+import { getTasks, updateTask, deleteTask, addTask } from "./api";
+import TaskList from "./components/taskList";
+import TaskForm from "./components/TaskForm";
 
 export default function App() {
-  const [tasks, setTasks ] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   async function loadTasks() {
-    const response = await fetch(`${API_URL}/api/tasks`);
-    const data = await response.json();
+    const data = await getTasks();
     setTasks(data);
   }
-  useEffect(() => { loadTasks() }, [])
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  async function handleAdd(title, status) {
+    await addTask(title, status);
+    loadTasks();
+  }
+
+  async function handleUpdate(id, update) {
+    await updateTask(id, update);
+    loadTasks();
+  }
+
+  async function handleDelete(id) {
+    await deleteTask(id);
+    loadTasks();
+  }
+
+  const statuses = ["pending", "in progress", "done"];
 
   return (
     <>
-     <main>
-      <h1>TODO App</h1>
+      <main>
+        <h1>TODO App</h1>
 
-      <ul>
-        {tasks.map((t) => (
-          <li key={t.id}>
-            {t.title} - {t.status}
-          </li>
+        <TaskForm onAdd={handleAdd} />
+
+        {statuses.map((status) => (
+          <TaskList
+            key={status}
+            title={status}
+            tasks={tasks.filter((t) => t.status === status)}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
         ))}
-      </ul>
-     </main>
+      </main>
     </>
-  )
-};
-
+  );
+}
