@@ -8,15 +8,19 @@ export default function TaskList({ title, tasks, onUpdate, onDelete }) {
   const statuses = ["pending", "in progress", "done"];
 
   return (
-    <section >
-      <h1 className='text-lg font-semibold mb-2 capitalize' >{title}</h1>
+    <section>
+      <h1 className="text-lg font-semibold mb-2 capitalize">{title}</h1>
 
       <table className="w-full border-collapse border border-gray-200 rounded-sm">
         <thead>
-          <tr className='bg-gray-50'>
-            <th className='border border-gray-300 text-left p-2' >Title </th>
-            <th className='border border-gray-300 text-left p-2 w-35'>Status</th>
-            <th className='border border-gray-300 text-left p-2 w-25'>Actions</th>
+          <tr className="bg-gray-50">
+            <th className="border border-gray-300 text-left p-2">Title </th>
+            <th className="border border-gray-300 text-left p-2 w-35">
+              Status
+            </th>
+            <th className="border border-gray-300 text-left p-2 w-25">
+              Actions
+            </th>
           </tr>
         </thead>
 
@@ -65,20 +69,24 @@ export default function TaskList({ title, tasks, onUpdate, onDelete }) {
                 <>
                   <td className="border border-gray-300 p-2">{task.title}</td>
                   <td className="border border-gray-300 p-2">{task.status}</td>
-                  <td className='border border-gray-300 p-2'>
+                  <td className="border border-gray-300 p-2">
                     <div className="flex gap-2 items-center">
                       <button
-                      className='px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700'
-                      onClick={() => {
-                        setEditingId(task.id);
-                        setEditTitle(task.title);
-                        setEditStatus(task.status);
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
-                    onClick={() => onDelete(task.id)}>Delete</button>
+                        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                        onClick={() => {
+                          setEditingId(task.id);
+                          setEditTitle(task.title);
+                          setEditStatus(task.status);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                        onClick={() => onDelete(task.id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </td>
                 </>
