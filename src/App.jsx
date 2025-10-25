@@ -33,22 +33,22 @@ export default function App() {
   const statuses = ["pending", "in progress", "done"];
 
   return (
-    <>
-      <main>
-        <h1>TODO App</h1>
+      <main class='p-4'>
+        <h1 class='text-4xl font-bold mb-4' >TODO App</h1>
 
         <TaskForm onAdd={handleAdd} />
 
-        {statuses.map((status) => (
-          <TaskList
-            key={status}
-            title={status}
-            tasks={tasks.filter((t) => t.status === status)}
-            onUpdate={handleUpdate}
-            onDelete={handleDelete}
-          />
-        ))}
+        <div class="flex flex-wrap gap-6 mt-4" >
+          {statuses.map((status) => (
+            <TaskList
+              key={status}
+              title={status}
+              tasks={tasks.filter((t) => t.status === status)}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
       </main>
-    </>
   );
 }
